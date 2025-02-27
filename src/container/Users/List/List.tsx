@@ -15,7 +15,7 @@ const List: React.FC = () => {
     const navigate = useNavigate();
     // Call API users
     useEffect(() => {
-        usersAPIs.listUsers()
+        usersAPIs.getUsers()
             .then(res => usersDispatch(actions.setUsers({ users: res.data })));
     }, []);
 
@@ -55,7 +55,7 @@ const List: React.FC = () => {
         usersAPIs.deleteUser(id)
             .then(res => {
                 if (res.statusCode === 200) {
-                    usersAPIs.listUsers()
+                    usersAPIs.getUsers()
                         .then(res => usersDispatch(actions.setUsers({ users: res.data })));
                 }
                 console.log("Message [handleDeleteButtonClicked]: ", res.message);
@@ -90,7 +90,7 @@ const List: React.FC = () => {
                         <table className={styles.userTable}>
                             <thead className={styles.tableHeader}>
                                 <tr>
-                                    <th className={styles.tableCell}>No</th>
+                                    <th className={styles.tableCell}>N.O</th>
                                     <th className={styles.tableCell}>Create Date</th>
                                     <th className={styles.tableCell}>UID</th>
                                     <th className={styles.tableCell}>Username</th>

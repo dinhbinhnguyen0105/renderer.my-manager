@@ -39,7 +39,7 @@ export interface IUser {
         }
     },
     actions: {
-        selected: boolean | undefined,
+        isSelected: boolean | undefined,
         [key: string]: unknown,
     }
 };

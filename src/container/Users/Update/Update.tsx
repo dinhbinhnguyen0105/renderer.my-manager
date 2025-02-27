@@ -1,5 +1,5 @@
 // Update.tsx
-import { data, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./Update.module.scss";
 import { getUser, updateUser } from "~/APIs/users";
@@ -46,7 +46,7 @@ const Update: React.FC = () => {
             }
         },
         actions: {
-            selected: false,
+            isSelected: false,
         },
     });
     const id = searchParams.get("id");
@@ -97,7 +97,7 @@ const Update: React.FC = () => {
             {
                 user ? (
                     <div className={styles.updateContainer}>
-                        <h2 className={styles.title}>Update {user.info.uid}'s information</h2>
+                        <h2 className={styles.title}>Update {user.info.username}'s information</h2>
                         <div className={styles.updateContent}>
                             <div className={styles.updateSection}>
                                 <label htmlFor="username">username</label>
@@ -106,7 +106,7 @@ const Update: React.FC = () => {
 
                             <div className={styles.updateSection}>
                                 <label htmlFor="uid">uid</label>
-                                <input type="text" id="uid" name="uid" value={user.info.uid} onChange={handleOnChange} disabled />
+                                <input type="text" id="uid" name="uid" value={user.info.uid} onChange={handleOnChange} />
                             </div>
 
                             <div className={styles.updateSection}>

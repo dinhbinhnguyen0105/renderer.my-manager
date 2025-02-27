@@ -46,7 +46,7 @@ const Create: React.FC = () => {
             }
         },
         actions: {
-            selected: false,
+            isSelected: false,
         },
     });
 

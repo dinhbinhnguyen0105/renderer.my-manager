@@ -1,6 +1,6 @@
 import { IUser } from "~/interfaces/users";
 
-export const listUsers = async (): Promise<{
+export const getUsers = async (): Promise<{
     data: IUser[],
     message: string,
     statusCode: number,

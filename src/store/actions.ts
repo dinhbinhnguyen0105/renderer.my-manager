@@ -3,20 +3,36 @@ import { IUser } from "~/interfaces/users";
 import {
     SET_USERS,
     SELECT_USER,
-    SELECT_ALL_USERS,
+    SELECT_ALL_USER,
 } from "./constants";
 
-interface ActionsProps {
+interface SetUsersProps {
     users: IUser[],
-    [key: string]: unknown,
-
 };
-
-const setUsers = (payload: ActionsProps) => ({
+const setUsers = (payload: SetUsersProps) => ({
     type: SET_USERS,
     payload: payload,
 });
 
-export {
-    setUsers
+interface SelectUserProps {
+    id: string,
+    isSelected: boolean
+};
+const selectUser = (payload: SelectUserProps) => ({
+    type: SELECT_USER,
+    payload: payload,
+});
+
+interface SelectAllUserProps {
+    isSelected: boolean
 }
+const selectAllUser = (payload: SelectAllUserProps) => ({
+    type: SELECT_ALL_USER,
+    payload: payload,
+})
+
+export {
+    setUsers,
+    selectUser,
+    selectAllUser,
+};
