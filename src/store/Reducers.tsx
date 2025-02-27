@@ -5,21 +5,24 @@ import { IUser } from "~/interfaces/users";
 interface Action {
     type: string,
     payload: {
+        users: IUser[],
         [key: string]: unknown,
     }
-}
-const SearchReducer = (state: IUser[], action: Action) => {
+};
+
+const initUsersState: IUser[] = [];
+
+const UsersReducer = (state: IUser[], action: Action): IUser[] => {
+    console.log("Reducer.action: ", action);
     switch (action.type) {
         case SET_USERS: {
-            return [
-                ...state,
-                action.payload
-            ]
+            return action.payload.users
         }
-            throw new Error("Invalid action");
+        default: throw new Error("Invalid action");
     };
 };
 
 export {
-    SearchReducer,
+    initUsersState,
+    UsersReducer,
 };

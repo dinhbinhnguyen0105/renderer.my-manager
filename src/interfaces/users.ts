@@ -1,44 +1,46 @@
 // users.ts
+import { Dispatch } from "react";
 
 export interface IUser {
     info: {
-        id: string,
-        username: string,
-        uid: string,
-        password: string,
-        twoFA: string,
-        email: string,
-        emailPassword: string,
-        phoneNumber: string,
-        birthDay: string
-        gender: string
-        avatar: string
-        group: string,
-        type: string
-        note: string
-        status: string
-        createdAt: string
-        updatedAt: string
+        id: string | undefined,
+        username: string | undefined,
+        uid: string | undefined,
+        password: string | undefined,
+        twoFA: string | undefined,
+        email: string | undefined,
+        emailPassword: string | undefined,
+        phoneNumber: string | undefined,
+        birthDay: string | undefined,
+        gender: string | undefined,
+        avatar: string | undefined,
+        group: string | undefined,
+        type: string | undefined,
+        note: string | undefined,
+        status: string | undefined,
+        createdAt: string | undefined,
+        updatedAt: string | undefined,
     },
     browser: {
-        name: string,
+        name: string | undefined,
         mobile: {
-            userAgent: string,
-            screenHeight: number,
-            screenWidth: number,
-            viewportHeight: number,
-            viewportWidth: number
+            userAgent: string | undefined,
+            screenHeight: number | undefined,
+            screenWidth: number | undefined,
+            viewportHeight: number | undefined,
+            viewportWidth: number | undefined,
         },
         desktop: {
-            userAgent: string,
-            screenHeight: number,
-            screenWidth: number,
-            viewportHeight: number,
-            viewportWidth: number
+            userAgent: string | undefined,
+            screenHeight: number | undefined,
+            screenWidth: number | undefined,
+            viewportHeight: number | undefined,
+            viewportWidth: number | undefined,
         }
     },
     actions: {
-        selected: boolean,
+        selected: boolean | undefined,
         [key: string]: unknown,
     }
 };
+export type UsersContextType = [IUser[], Dispatch<any>];
