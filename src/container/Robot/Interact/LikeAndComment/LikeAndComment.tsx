@@ -1,5 +1,5 @@
 // LikeAndComment.tsx
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useContext, useCallback } from "react";
 import * as actions from "~/store/actions";
 import { RobotContext } from "~/store/Contexts";
 

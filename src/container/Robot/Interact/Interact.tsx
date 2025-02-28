@@ -13,28 +13,46 @@ const Interact: React.FC = () => {
     const [usersState, usersDispatch] = useContext(UsersContext);
 
     useEffect(() => {
-        console.log("in Interact FC");
         robotAPIs.getRobotConfig()
             .then(res => {
-                console.log({ message: res.message, statusCode: res.statusCode });
+                console.log("Response [getRobotConfig]: ", { message: res.message, statusCode: res.statusCode })
                 robotDispatch(actions.setRobotConfig(res.data as IRobot));
             })
-            .catch(err => {
-                console.error(err);
-            })
-            .finally(() => console.log("End"));
-    }, [robotState]);
+            .catch(err => console.error(err));
+    }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         robotDispatch(actions.setSetting({ ...robotState.settings, [e.target.name]: e.target.type === "text" ? e.target.value : e.target.checked }));
-    }
+    };
 
+    const handleSaveButtonClicked: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
+        const target = e.target as HTMLButtonElement
+        const defaultInnerHTML = target.innerHTML;
+        target.innerHTML = "Saving ...";
+        robotAPIs.updateRobotConfig(robotState)
+            .then(res => console.log("Response [updateRobotConfig]: ", { message: res.message, statusCode: res.statusCode }))
+            .catch(err => console.error(err))
+            .finally(() => target.innerHTML = defaultInnerHTML);
+    };
 
-    const handleSaveButtonClicked = () => {
-        const selectedUsers = usersState.filter(user => user.actions.isSelected);
-        const selectedUserIds = selectedUsers.map(user => user.info.id);
-        // const robotInteract = 
-    }
+    const handleSaveAndRunButtonClicked: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
+        const target = e.target as HTMLButtonElement
+        const defaultInnerHTML = target.innerHTML;
+        target.innerHTML = "Saving ...";
+        robotAPIs.updateRobotConfig(robotState)
+            .then(res => console.log("Response [updateRobotConfig]: ", { message: res.message, statusCode: res.statusCode }))
+            .then(() => {
+                const selectedUsers = usersState.filter(user => user.actions.isSelected);
+                const userIDs = selectedUsers
+                    .map(user => user.info.id)
+                    .filter((id): id is string => typeof id === "string");
+                target.innerHTML = "Running ...";
+                return robotAPIs.runInteract(userIDs, robotState);
+            })
+            .then(res => console.log("Response [runInteract]: ", { message: res.message, statusCode: res.statusCode }))
+            .catch(err => console.error(err))
+            .finally(() => target.innerHTML = defaultInnerHTML);
+    };
 
     return (
         <div className={styles.interactContainer}>
@@ -73,7 +91,7 @@ const Interact: React.FC = () => {
             </div>
             <div className={styles.actionsContainer}>
                 <button className={styles.saveButton} onClick={handleSaveButtonClicked}>Save</button>
-                <button className={styles.saveAndRunButton}>Save & Run</button>
+                <button className={styles.saveAndRunButton} onDoubleClick={handleSaveAndRunButtonClicked}>Save & Run</button>
             </div>
         </div>
     );

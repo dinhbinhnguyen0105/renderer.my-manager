@@ -9,13 +9,12 @@ type RobotAPIsType = Promise<{
 
 const getRobotConfig = (): RobotAPIsType => {
     return new Promise((resolve, reject) => {
-        console.log("Fetch");
         window.electronAPIs ?
             window.electronAPIs.getRobotConfig()
                 .then(res => resolve(res))
                 .catch(err => reject(err)) :
             fetch("http://localhost:3000/robot")
-                .then(async res => ({
+                .then(async res => resolve({
                     data: await res.json() as IRobot,
                     message: "Successfully retrieved data from the database [robot]",
                     statusCode: 200,
@@ -44,7 +43,7 @@ const runInteract = async (userIds: string[], robotConfig: IRobot): RobotAPIsTyp
                 .then(res => resolve(res))
                 .catch(err => reject(err)) : resolve({
                     data: null,
-                    message: `Successfully updated robot config`,
+                    message: `Successfully run interact`,
                     statusCode: 200,
                 });
 

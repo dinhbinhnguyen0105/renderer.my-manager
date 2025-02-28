@@ -4,7 +4,7 @@ type RobotAPIsType = Promise<{
     message: string,
     statusCode: number,
 }>;
-
+// user: (payload) => ipcRenderer.invoke("user", payload),
 declare interface Window {
     electronAPIs?: {
         listUser: () => Promise<{
@@ -35,7 +35,8 @@ declare interface Window {
         }>;
 
         getRobotConfig: () => RobotAPIsType
-        updateRobotConfig: (robotConfig) => RobotAPIsType
-        runInteract: (users, robotConfig) => RobotAPIsType
+        updateRobotConfig: (robotConfig: IRobot) => RobotAPIsType
+        runInteract: (users: string[], robotConfig: IRobot) => RobotAPIsType
     };
 }
+
