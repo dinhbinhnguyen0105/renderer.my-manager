@@ -1,1 +1,102 @@
 // Robot.module.scss
+$config-bg: #f4f4f4; // Màu nền cho container
+$nav-bg: #ffffff; // Màu nền cho thanh điều hướng
+$nav-border: 1px solid #ccc; // Đường viền cho thanh điều hướng
+$nav-hover-bg: #e9ecef; // Màu nền khi hover trên các mục nav
+$link-color: #007bff; // Màu cho liên kết
+$link-hover-color: #0056b3; // Màu cho liên kết khi hover
+
+.robotContainer {
+    .robotContent {
+        display: flex;
+        flex-direction: row;
+        margin: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Đổ bóng cho danh sách
+        padding: 2rem;
+
+        .configContainer {
+            width: 100%;
+            background-color: $config-bg; // Màu nền cho container
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Đổ bóng cho container
+            display: flex;
+            flex-direction: column;
+            margin-left: 2rem;
+            border-radius: 8px;
+            padding: 2rem;
+            white-space: nowrap;
+
+            .configNav {
+                background-color: $nav-bg; // Màu nền cho thanh điều hướng
+                border-radius: 8px; // Bo góc cho thanh điều hướng
+                margin-bottom: 20px; // Khoảng cách dưới thanh điều hướng
+
+                ul {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    position: relative; // Để có thể sử dụng cho menu con
+
+                    li {
+                        list-style: none;
+                        padding: 1.2rem 2.4rem;
+                        position: relative; // Để định vị menu con
+
+                        a {
+                            text-decoration: none;
+                            text-transform: capitalize;
+                            font-size: 1.2rem;
+                            font-weight: 500;
+                            color: $link-color;
+
+                            &:hover {
+                                color: $link-hover-color;
+                            }
+                        }
+
+                        &:hover {
+                            background-color: $nav-hover-bg;
+
+                            // Hiển thị menu con khi hover
+                            .subNavList {
+                                display: block; // Hiển thị menu con
+                            }
+                        }
+
+                        // Menu con
+                        .subNavList {
+                            display: none; // Ẩn menu con mặc định
+                            position: absolute; // Định vị menu con
+                            top: 100%; // Đặt menu con ngay dưới mục cha
+                            left: 0; // Căn trái
+                            background-color: $nav-bg; // Màu nền cho menu con
+                            border-radius: 4px; // Bo góc cho menu con
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Đổ bóng cho menu con
+                            z-index: 1000; // Đảm bảo menu con nằm trên các phần tử khác
+
+                            li {
+                                padding: 0.8rem 1.5rem; // Padding cho các mục menu con
+
+                                a {
+                                    font-size: 1rem; // Kích thước chữ cho các liên kết trong menu con
+                                    color: $link-color;
+
+                                    &:hover {
+                                        color: $link-hover-color; // Màu khi hover trên liên kết trong menu con
+                                    }
+                                }
+
+                                &:hover {
+                                    background-color: $nav-hover-bg; // Màu nền khi hover trên mục menu con
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+}

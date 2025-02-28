@@ -1,1 +1,27 @@
 // Row.module.scss
+
+$table-row-bg: #f1f1f1; // Màu nền khi hover
+$selected-bg: #d1e7dd; // Màu nền cho hàng được chọn
+$border-color: #ccc; // Màu đường viền
+
+.tableRow {
+    transition: background-color 0.3s ease; // Hiệu ứng chuyển màu nền
+
+    &:hover {
+        background-color: $table-row-bg; // Màu nền khi di chuột qua hàng
+    }
+
+    &.selected {
+        background-color: $selected-bg; // Màu nền cho hàng được chọn
+    }
+
+    .tableCell {
+        padding: 10px 15px; // Khoảng cách bên trong ô
+        border: 1px solid $border-color; // Đường viền cho ô
+        text-align: left; // Căn trái nội dung trong ô
+
+        input[type="checkbox"] {
+            cursor: pointer; // Con trỏ khi di chuột qua checkbox
+        }
+    }
+}

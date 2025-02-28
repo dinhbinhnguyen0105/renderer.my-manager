@@ -20,7 +20,6 @@ const Row: React.FC<RowPops> = ({ index, user, isSelected, handleSelectUser }) =
                 <td className={styles.tableCell}>{index + 1}</td>
                 <td className={styles.tableCell}>{user.info.username}</td>
                 <td className={styles.tableCell}>{user.info.group}</td>
-                <td className={styles.tableCell}>{user.info.group}</td>
             </tr>
         </>
     )

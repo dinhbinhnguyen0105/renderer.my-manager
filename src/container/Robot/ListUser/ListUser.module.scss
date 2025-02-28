@@ -1,1 +1,44 @@
 // ListUser.module.scss
+
+$list-bg: #f9f9f9; // Màu nền cho danh sách người dùng
+$table-border: 1px solid #ccc; // Đường viền cho bảng
+$table-header-bg: #e9ecef; // Màu nền cho tiêu đề bảng
+$error-color: red; // Màu cho thông báo lỗi
+
+.listUser {
+    background-color: $list-bg; // Màu nền cho danh sách người dùng
+    padding: 2rem;
+    border-radius: 8px; // Bo góc cho danh sách
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Đổ bóng cho danh sách
+
+    .listUserContainer {
+        max-width: 800px; // Chiều rộng tối đa cho container
+        margin: 0 auto; // Căn giữa container
+
+        .userTable {
+            width: 100%; // Chiều rộng bảng
+            border-collapse: collapse; // Gộp các đường viền
+
+            .tableHeader {
+                background-color: $table-header-bg; // Màu nền cho tiêu đề bảng
+                text-transform: capitalize;
+
+                th {
+                    white-space: nowrap;
+                }
+            }
+
+            .tableCell {
+                padding: 10px; // Khoảng cách bên trong ô
+                border: $table-border; // Đường viền cho ô
+                text-align: left; // Căn trái nội dung trong ô
+            }
+        }
+
+        .errorMessage {
+            color: $error-color; // Màu cho thông báo lỗi
+            text-align: center; // Căn giữa thông báo lỗi
+        }
+    }
+
+}

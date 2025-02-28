@@ -31,7 +31,7 @@ const ListUser: React.FC = () => {
 
     return (
         <div className={styles.listUser}>
-            <div className="listUserContainer">
+            <div className={styles.listUserContainer}>
                 {
                     usersState.length ? (
                         <table className={styles.userTable}>
