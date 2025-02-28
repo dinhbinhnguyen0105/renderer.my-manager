@@ -1,0 +1,64 @@
+$container-bg: rgba(197, 197, 197, .6);
+$container-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+
+.likeCommentType1Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: $container-bg;
+    border-radius: $border-radius;
+    box-shadow: $container-box-shadow;
+    padding: 1rem;
+    margin: 1rem;
+
+    .content {
+        display: flex;
+        flex-basis: 40%;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+
+        .checkbox {
+            cursor: pointer; // Thay đổi con trỏ khi hover
+        }
+
+        .labelText {
+            display: inline-block;
+            margin: 0 1rem 0 0.6rem;
+            font-weight: 500;
+        }
+
+        .valueInput {
+            width: 50px; // Chiều rộng thấp cho trường nhập
+            padding: 0.2rem; // Padding cho trường nhập
+            border: 1px solid #ccc; // Đường viền cho trường nhập
+            border-radius: $border-radius; // Bo góc cho trường nhập
+        }
+
+        .valueInput::placeholder {
+            color: #ccc;
+            font-size: 0.8rem;
+        }
+
+        // Định dạng cho các trường nhập khác
+        .likeValueInput,
+        .commentValueInput {
+            width: 100%; // Chiều rộng cho trường nhập "like", "share", "comment"
+        }
+    }
+
+    .inviteContainer {
+        flex-basis: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .inviteURLInput {
+            width: 100%;
+        }
+    }
+}

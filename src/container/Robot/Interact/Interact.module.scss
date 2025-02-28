@@ -1,2 +1,89 @@
 // Interact.module.scss
-.interactContainer {}
+$container-bg: rgba(255, 255, 255, 1);
+$container-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$border-radius: 8px;
+$button-bg: #4CAF50; // Màu nền cho nút
+$button-hover-bg: #45a049; // Màu nền khi hover
+$button-text-color: #fff; // Màu chữ
+$button-padding: 0.5rem 1rem; // Padding cho nút
+$button-margin: 0.5rem; // Khoảng cách giữa các nút
+
+@mixin container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: $container-bg;
+    border-radius: $border-radius;
+    box-shadow: $container-box-shadow;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.interactContainer {
+
+    .settingsContainer {
+        @include container();
+
+        .content {
+            .checkbox {
+                cursor: pointer; // Thay đổi con trỏ khi hover
+            }
+
+            .labelText {
+                display: inline-block;
+                margin: 0 1rem 0 0.6rem;
+                font-weight: 500;
+            }
+
+            .valueInput {
+                width: 50px; // Chiều rộng thấp cho trường nhập
+                padding: 0.2rem; // Padding cho trường nhập
+                border: 1px solid #ccc; // Đường viền cho trường nhập
+                border-radius: $border-radius; // Bo góc cho trường nhập
+            }
+        }
+
+        .contentProxy {
+            flex-basis: 50%;
+
+            .valueProxyInput {
+                width: 80%;
+            }
+        }
+    }
+
+    .actionsContainer {
+        @include container();
+        justify-content: space-evenly;
+
+        .saveButton,
+        .saveAndRunButton {
+            background-color: $button-bg; // Màu nền cho nút
+            color: $button-text-color; // Màu chữ
+            border: none; // Không có đường viền
+            border-radius: $border-radius; // Bo góc
+            padding: $button-padding; // Padding
+            cursor: pointer; // Thay đổi con trỏ khi hover
+            transition: background-color 0.3s ease; // Hiệu ứng chuyển màu nền
+
+            &:hover {
+                background-color: $button-hover-bg; // Màu nền khi hover
+            }
+
+            &:focus {
+                outline: none; // Ẩn viền khi nút được chọn
+            }
+        }
+
+        .saveAndRunButton {
+            // Có thể thêm các định dạng riêng cho nút "Save & Run" nếu cần
+            background-color: #2196F3; // Màu nền khác cho nút "Save & Run"
+
+            &:hover {
+                background-color: #1976D2; // Màu nền khi hover cho nút "Save & Run"
+            }
+        }
+    }
+}

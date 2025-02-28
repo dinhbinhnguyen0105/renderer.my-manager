@@ -195,5 +195,133 @@
             },
             "actions": {}
         }
-    ]
+    ],
+    "robot": {
+        "interact": {
+            "likeAndComment": {
+                "isSelected": false,
+                "newsFeed": {
+                    "isSelected": false,
+                    "value": 0,
+                    "like": {
+                        "isSelected": false,
+                        "value": [
+                            "like",
+                            "love"
+                        ]
+                    },
+                    "share": {
+                        "isSelected": false,
+                        "value": 0
+                    },
+                    "comment": {
+                        "isSelected": false,
+                        "value": []
+                    }
+                },
+                "watch": {
+                    "isSelected": false,
+                    "value": 0,
+                    "like": {
+                        "isSelected": false,
+                        "value": [
+                            "like",
+                            "love"
+                        ]
+                    },
+                    "share": {
+                        "isSelected": false,
+                        "value": 0
+                    },
+                    "comment": {
+                        "isSelected": false,
+                        "value": []
+                    }
+                },
+                "group": {
+                    "isSelected": false,
+                    "value": 0,
+                    "like": {
+                        "isSelected": false,
+                        "value": [
+                            "like",
+                            "love"
+                        ]
+                    },
+                    "share": {
+                        "isSelected": false,
+                        "value": 0
+                    },
+                    "comment": {
+                        "isSelected": false,
+                        "value": []
+                    }
+                },
+                "friend": {
+                    "isSelected": false,
+                    "isOnline": false,
+                    "like": {
+                        "isSelected": false,
+                        "value": [
+                            "like",
+                            "love"
+                        ]
+                    },
+                    "comment": {
+                        "isSelected": false,
+                        "value": []
+                    },
+                    "poke": {
+                        "isSelected": false,
+                        "value": -1
+                    },
+                    "rePoke": {
+                        "isSelected": false,
+                        "value": -1
+                    }
+                },
+                "page": {
+                    "isSelected": false,
+                    "value": 0,
+                    "like": {
+                        "isSelected": false,
+                        "value": [
+                            "like",
+                            "love"
+                        ]
+                    },
+                    "share": {
+                        "isSelected": false,
+                        "value": 0
+                    },
+                    "comment": {
+                        "isSelected": false,
+                        "value": []
+                    },
+                    "invite": {
+                        "isSelected": false,
+                        "value": 0,
+                        "url": ""
+                    }
+                },
+                "marketplace": {
+                    "isSelected": false,
+                    "value": 0
+                },
+                "notification": {
+                    "isSelected": false,
+                    "value": 0
+                },
+                "search": {
+                    "isSelected": false,
+                    "value": 0
+                }
+            }
+        },
+        "settings": {
+            "isMobile": false,
+            "thread": 1,
+            "proxy": "https://www.proxyvn.com ...."
+        }
+    }
 }

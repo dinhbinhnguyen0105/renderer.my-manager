@@ -1,1 +1,25 @@
 // LikeAndComment.module.scss
+.likeAndComment {
+    .likeAndCommentContainer {
+        .thisSelected {
+            gap: 1rem;
+
+            input {
+                margin: 0 0.6rem;
+
+            }
+
+            label {
+                display: inline-block;
+                margin: 0 0.6rem;
+                font-weight: 600;
+                font-size: 1.2rem;
+            }
+        }
+
+        .likeAndCommentContent {
+            .likeAndCommentSection {}
+
+        }
+    }
+}

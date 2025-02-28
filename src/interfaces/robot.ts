@@ -1,110 +1,106 @@
+import { Dispatch } from "react";
 
-
-
-type TReactions = "like" | "love" | "haha" | "wow" | "sad" | "angry";
-
+export type TReactions = "like" | "love" | "haha" | "wow" | "sad" | "angry";
+export type TRobotSettings = {
+    isMobile: boolean,
+    thread: number,
+    proxy: string,
+};
+export type TLikeComment_0 = {
+    isSelected: boolean,
+    value: number,
+};
+export type TLikeComment_1 = {
+    isSelected: boolean,
+    value: number,
+    like: {
+        isSelected: boolean,
+        value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
+    },
+    share: {
+        isSelected: boolean,
+        value: number,
+    },
+    comment: {
+        isSelected: boolean,
+        value: string[],
+    },
+};
+export type TLikeComment_2 = {
+    isSelected: boolean,
+    isOnline: boolean,
+    like: {
+        isSelected: boolean,
+        value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
+    },
+    comment: {
+        isSelected: boolean,
+        value: string[],
+    },
+    poke: {
+        isSelected: boolean,
+        value: number,
+    },
+    rePoke: {
+        isSelected: boolean,
+        value: number,
+    },
+};
+export type TLikeComment_3 = {
+    isSelected: boolean,
+    value: number,
+    like: {
+        isSelected: boolean,
+        value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
+    },
+    share: {
+        isSelected: boolean,
+        value: number,
+    },
+    comment: {
+        isSelected: boolean,
+        value: string[],
+    },
+    invite: {
+        isSelected: boolean,
+        value: number,
+        url: string,
+    }
+};
 export interface ILikeAndComment {
     isSelected: boolean,
-    newsFeed: {
-        isSelected: boolean,
-        value: number,
-        like: {
-            isSelected: boolean,
-            value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
-        },
-        share: {
-            isSelected: boolean,
-            value: number,
-        },
-        comment: {
-            isSelected: boolean,
-            value: string[],
-        },
-    },
-    watch: {
-        isSelected: boolean,
-        value: number,
-        like: {
-            isSelected: boolean,
-            value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
-        },
-        share: {
-            isSelected: boolean,
-            value: number,
-        },
-        comment: {
-            isSelected: boolean,
-            value: string[],
-        },
-    },
-    friend: {
-        isSelected: boolean,
-        isOnline: boolean,
-        like: {
-            isSelected: boolean,
-            value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
-        },
-        comment: {
-            isSelected: boolean,
-            value: string[],
-        },
-        poke: {
-            isSelected: boolean,
-            value: number,
-        },
-        rePoke: {
-            isSelected: boolean,
-            value: number,
-        },
-    },
-    group: {
-        isSelected: boolean,
-        value: number,
-        like: {
-            isSelected: boolean,
-            value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
-        },
-        share: {
-            isSelected: boolean,
-            value: number,
-        },
-        comment: {
-            isSelected: boolean,
-            value: string[],
-        },
-    },
-    page: {
-        isSelected: boolean,
-        value: number,
-        like: {
-            isSelected: boolean,
-            value: TReactions[], //count ["like", "love", "haha", "wow", "sad", "angry"]
-        },
-        share: {
-            isSelected: boolean,
-            value: number,
-        },
-        comment: {
-            isSelected: boolean,
-            value: string[],
-        },
-    },
-    marketplace: {
-        isSelected: boolean,
-        value: number,
-    },
-    notification: {
-        isSelected: boolean,
-        value: number,
-    },
-    search: {
-        isSelected: boolean,
-        value: number,
-    },
-}
+    newsFeed: TLikeComment_1,
+    watch: TLikeComment_1,
+    group: TLikeComment_1,
+    friend: TLikeComment_2,
+    page: TLikeComment_3,
+    marketplace: TLikeComment_0,
+    notification: TLikeComment_0,
+    search: TLikeComment_0,
+};
 
 export const initLikeAndCommentState: ILikeAndComment = {
     isSelected: false,
+    friend: {
+        isSelected: false,
+        isOnline: false,
+        like: {
+            isSelected: false,
+            value: [], //count ["like", "love", "haha", "wow", "sad", "angry"]
+        },
+        comment: {
+            isSelected: false,
+            value: [],
+        },
+        poke: {
+            isSelected: false,
+            value: -1,
+        },
+        rePoke: {
+            isSelected: false,
+            value: -1,
+        },
+    },
     newsFeed: {
         isSelected: false,
         value: 0,
@@ -137,26 +133,6 @@ export const initLikeAndCommentState: ILikeAndComment = {
             value: [],
         },
     },
-    friend: {
-        isSelected: false,
-        isOnline: false,
-        like: {
-            isSelected: false,
-            value: [], //count ["like", "love", "haha", "wow", "sad", "angry"]
-        },
-        comment: {
-            isSelected: false,
-            value: [],
-        },
-        poke: {
-            isSelected: false,
-            value: -1,
-        },
-        rePoke: {
-            isSelected: false,
-            value: -1,
-        },
-    },
     group: {
         isSelected: false,
         value: -1,
@@ -188,6 +164,11 @@ export const initLikeAndCommentState: ILikeAndComment = {
             isSelected: false,
             value: [],
         },
+        invite: {
+            isSelected: false,
+            value: -1,
+            url: "",
+        }
     },
     marketplace: {
         isSelected: false,
@@ -201,4 +182,24 @@ export const initLikeAndCommentState: ILikeAndComment = {
         isSelected: false,
         value: -1,
     },
+};
+
+export interface IRobot {
+    interact: {
+        likeAndComment: ILikeAndComment,
+    },
+    settings: TRobotSettings,
+};
+
+export type RobotContextType = [IRobot, Dispatch<any>];
+
+export const initRobotState: IRobot = {
+    interact: {
+        likeAndComment: initLikeAndCommentState,
+    },
+    settings: {
+        isMobile: false,
+        thread: 1,
+        proxy: "",
+    }
 };

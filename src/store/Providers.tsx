@@ -1,10 +1,11 @@
 // Providers.tsx
 import { useMemo, useReducer, useState } from "react";
 
-import { SearchContext, UsersContext } from "./Contexts";
+import { RobotContext, SearchContext, UsersContext } from "./Contexts";
 import { SearchContextType } from "~/interfaces/search";
-import { UsersContextType } from "~/interfaces/users";
-import { initUsersState, UsersReducer } from "./Reducers";
+import { UsersContextType, initUsersState } from "~/interfaces/users";
+import { RobotReducer, UsersReducer } from "./Reducers";
+import { RobotContextType, initRobotState } from "~/interfaces/robot";
 
 
 const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -26,10 +27,21 @@ const UsersProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <UsersContext value={usersContextValue}>
             {children}
         </UsersContext>
-    )
-}
+    );
+};
+
+const RobotProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [robotState, robotDispatch] = useReducer(RobotReducer, initRobotState);
+    const robotContextValue = useMemo<RobotContextType>(() => [robotState, robotDispatch], [robotState, robotDispatch]);
+    return (
+        <RobotContext value={robotContextValue}>
+            {children}
+        </RobotContext>
+    );
+};
 
 export {
     SearchProvider,
     UsersProvider,
+    RobotProvider,
 };

@@ -44,3 +44,5 @@ export interface IUser {
     }
 };
 export type UsersContextType = [IUser[], Dispatch<any>];
+
+export const initUsersState: IUser[] = [];

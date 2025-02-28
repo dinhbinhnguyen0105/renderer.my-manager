@@ -1,4 +1,9 @@
-// import { IUser } from "./interfaces/users";
+
+type RobotAPIsType = Promise<{
+    data: IRobot,
+    message: string,
+    statusCode: number,
+}>;
 
 declare interface Window {
     electronAPIs?: {
@@ -28,5 +33,9 @@ declare interface Window {
             message: string,
             statusCode: number,
         }>;
+
+        getRobotConfig: () => RobotAPIsType
+        updateRobotConfig: (robotConfig) => RobotAPIsType
+        runInteract: (users, robotConfig) => RobotAPIsType
     };
 }
