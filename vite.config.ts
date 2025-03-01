@@ -10,4 +10,8 @@ export default defineConfig({
       "~": path.resolve(__dirname, "src"),
     },
   },
+  base: "./", // Để đảm bảo file index.html tìm đúng đường dẫn sau khi build
+  build: {
+    outDir: "dist",
+  },
 })
