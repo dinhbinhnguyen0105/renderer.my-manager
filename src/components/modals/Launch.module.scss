@@ -1,0 +1,50 @@
+// Launch.module.scss
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); // Màu nền mờ
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; // Đảm bảo modal nằm trên các thành phần khác
+}
+
+.launchContainer {
+    background-color: white; // Màu nền của modal
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px; // Chiều rộng của modal
+}
+
+.launchSettings {
+    margin-bottom: 20px;
+}
+
+.content {
+    margin-bottom: 10px;
+}
+
+.labelText {
+    margin-left: 8px;
+}
+
+.launchActions {
+    text-align: right;
+}
+
+.launchButton {
+    background-color: #007bff; // Màu nền của nút
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #0056b3; // Màu nền khi hover
+    }
+}

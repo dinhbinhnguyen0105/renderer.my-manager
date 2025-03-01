@@ -25,6 +25,7 @@ const App: React.FC = () => {
                     </Route>
                     <Route path="/user" element={<User />}>
                         <Route index element={<List />} />
+                        <Route path="list" element={<List />}></Route>
                         <Route path="create" element={<Create />}></Route>
                         <Route path="update" element={<Update />}></Route>
                     </Route>

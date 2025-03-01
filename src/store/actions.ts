@@ -1,6 +1,6 @@
 // actions.ts
 import { IUser } from "~/interfaces/users";
-import { TRobotSettings, TLikeComment_0, TLikeComment_1, TLikeComment_2, TLikeComment_3, IRobot } from "~/interfaces/robot";
+import { TLikeComment_0, TLikeComment_1, TLikeComment_2, TLikeComment_3, IRobot } from "~/interfaces/robot";
 import {
     SET_USERS,
     SELECT_USER,
@@ -17,6 +17,7 @@ import {
     SET_SETTINGS,
     SET_ROBOT_CONFIGS,
 } from "./constants";
+import { ISettings } from "~/interfaces/settings";
 
 type SetUsersProps = {
     users: IUser[],
@@ -41,12 +42,6 @@ type SelectAllUserProps = {
 const selectAllUser = (payload: SelectAllUserProps) => ({
     type: SELECT_ALL_USER,
     payload: payload,
-});
-
-
-const setRobotConfig = (payload: IRobot) => ({
-    type: SET_ROBOT_CONFIGS,
-    payload,
 });
 
 const selectLikeAndComment = (payload: { isSelected: boolean }) => ({
@@ -89,12 +84,10 @@ const setPage = (payload: TLikeComment_3) => ({
     payload,
 });
 
-const setSetting = (payload: TRobotSettings) => ({
-    type: SET_SETTINGS,
+const setRobotConfigs = (payload: IRobot) => ({
+    type: SET_ROBOT_CONFIGS,
     payload,
 });
-
-
 
 
 export {
@@ -102,7 +95,7 @@ export {
     selectUser,
     selectAllUser,
 
-    setRobotConfig,
+    setRobotConfigs,
     selectLikeAndComment,
     setMarketplace,
     setNotification,
@@ -112,6 +105,4 @@ export {
     setGroup,
     setFriend,
     setPage,
-
-    setSetting,
 };

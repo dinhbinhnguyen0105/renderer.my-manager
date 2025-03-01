@@ -1,6 +1,6 @@
 // Reducers.tsx
-import { IRobot, TLikeComment_0, TLikeComment_1, TLikeComment_2, TLikeComment_3, TRobotSettings } from "~/interfaces/robot";
-import { SELECT_ALL_USER, SELECT_USER, SET_USERS, SELECT_LIKE_COMMENT, SET_NEWS_FEED, SET_GROUP, SET_WATCH, SET_PAGE, SET_FRIEND, SET_MARKETPLACE, SET_NOTIFICATION, SET_SEARCH, SET_SETTINGS, SET_ROBOT_CONFIGS } from "./constants";
+import { IRobot, TLikeComment_0, TLikeComment_1, TLikeComment_2, TLikeComment_3 } from "~/interfaces/robot";
+import { SELECT_ALL_USER, SELECT_USER, SET_USERS, SELECT_LIKE_COMMENT, SET_NEWS_FEED, SET_GROUP, SET_WATCH, SET_PAGE, SET_FRIEND, SET_MARKETPLACE, SET_NOTIFICATION, SET_SEARCH, SET_ROBOT_CONFIGS } from "./constants";
 import { IUser } from "~/interfaces/users";
 
 interface ActionUsersProp {
@@ -53,7 +53,7 @@ const UsersReducer = (state: IUser[], action: ActionUsersProp): IUser[] => {
 type TLikeAndComment = { isSelected: boolean };
 interface ActionRobotProp {
     type: string,
-    payload: TLikeAndComment | TLikeComment_0 | TLikeComment_1 | TLikeComment_2 | TLikeComment_3 | TRobotSettings | IRobot
+    payload: TLikeAndComment | TLikeComment_0 | TLikeComment_1 | TLikeComment_2 | TLikeComment_3 | IRobot
 };
 
 const RobotReducer = (state: IRobot, action: ActionRobotProp): IRobot => {
@@ -180,19 +180,11 @@ const RobotReducer = (state: IRobot, action: ActionRobotProp): IRobot => {
                 }
             });
         }
-        case SET_SETTINGS: {
-            const settings = action.payload as TRobotSettings;
-            return ({
-                ...state,
-                settings: {
-                    ...state.settings,
-                    ...settings
-                }
-            });
-        }
         default: throw new Error("Invalid action");
     };
 };
+
+// tạo mới dữ liệu cho setting, call từ 
 
 export {
     UsersReducer,

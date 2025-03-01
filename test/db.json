@@ -323,5 +323,10 @@
             "thread": 1,
             "proxy": "https://www.proxyvn.com ...."
         }
+    },
+    "settings": {
+        "isMobile": true,
+        "thread": 1,
+        "proxy": "https://www.proxyvn.com ...."
     }
 }

@@ -7,15 +7,18 @@ import { UsersContext, SearchContext } from "~/store/Contexts";
 import * as actions from "~/store/actions";
 import styles from "./List.module.scss";
 import Row from "./Row";
+import Launch from "~/components/modals/Launch";
 
 const List: React.FC = () => {
     const [usersState, usersDispatch] = useContext(UsersContext);
     const [expandRowIndex, setExpandRowIndex] = useState<number>(-1);
     const [searchValue] = useContext(SearchContext);
+    const [isLaunchModal, setIsLaunchModal] = useState<boolean>(false);
+    const [currentId, setCurrentId] = useState<string | null>(null);
     const navigate = useNavigate();
     // Call API users
     useEffect(() => {
-        usersAPIs.getUsers()
+        usersAPIs.listUser()
             .then(res => usersDispatch(actions.setUsers({ users: res.data })));
     }, []);
 
@@ -55,7 +58,7 @@ const List: React.FC = () => {
         usersAPIs.deleteUser(id)
             .then(res => {
                 if (res.statusCode === 200) {
-                    usersAPIs.getUsers()
+                    usersAPIs.listUser()
                         .then(res => usersDispatch(actions.setUsers({ users: res.data })));
                 }
                 console.log("Message [handleDeleteButtonClicked]: ", res.message);
@@ -67,18 +70,11 @@ const List: React.FC = () => {
     }, [usersDispatch]);
 
     const handleLaunchButtonClicked = useCallback((event: React.MouseEvent<EventTarget>, id: string): void => {
-        const target = event.currentTarget as HTMLButtonElement;
-        const defaultInnerHTML = target.innerHTML;
-        target.innerHTML = "...";
-        usersAPIs.launchUser(id)
-            .then(res => {
-                if (res.statusCode === 200) {
-                    //
-                }
-                console.log("Message [handleLaunchButtonClicked]: ", res.message)
-            })
-            .then(() => target.innerHTML = defaultInnerHTML)
-            .catch(err => console.error(err));
+        // const target = event.currentTarget as HTMLButtonElement;
+        // const defaultInnerHTML = target.innerHTML;
+        // target.innerHTML = "...";
+        setIsLaunchModal(true);
+        setCurrentId(id);
     }, []);
 
     return (
@@ -117,10 +113,14 @@ const List: React.FC = () => {
                             </tbody>
                         </table>
                     ) : (
-                        <h2 className={styles.errorMessage}>Unable to fetch users from database.</h2>
+                        <h2 className={styles.errorMessage}>Unable to fetch users from database, or users is empty.</h2>
                     )
                 }
             </div>
+            {
+                currentId && <Launch id={currentId} isOpen={isLaunchModal} onClose={() => setIsLaunchModal(false)} />
+            }
+
         </div>
     )
 };

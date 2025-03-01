@@ -1,7 +1,7 @@
 // ListUser.tsx
 import { useState, useContext, useEffect, useCallback } from "react";
 
-import { getUsers } from "~/APIs/users";
+import { listUser } from "~/APIs/users";
 import * as actions from "~/store/actions";
 import { UsersContext } from "~/store/Contexts";
 import styles from "./ListUser.module.scss"
@@ -13,7 +13,7 @@ const ListUser: React.FC = () => {
     const [selectedAll, setSelectedAll] = useState<boolean>(false);
 
     useEffect(() => {
-        getUsers()
+        listUser()
             .then(res => usersDispatch(actions.setUsers({ users: res.data })));
     }, []);
 

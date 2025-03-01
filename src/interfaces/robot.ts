@@ -1,11 +1,7 @@
 import { Dispatch } from "react";
 
 export type TReactions = "like" | "love" | "haha" | "wow" | "sad" | "angry";
-export type TRobotSettings = {
-    isMobile: boolean,
-    thread: number,
-    proxy: string,
-};
+
 export type TLikeComment_0 = {
     isSelected: boolean,
     value: number,
@@ -188,7 +184,7 @@ export interface IRobot {
     interact: {
         likeAndComment: ILikeAndComment,
     },
-    settings: TRobotSettings,
+    // settings: TRobotSettings,   //đưa ra setting riêng
 };
 
 export type RobotContextType = [IRobot, Dispatch<any>];
@@ -197,9 +193,9 @@ export const initRobotState: IRobot = {
     interact: {
         likeAndComment: initLikeAndCommentState,
     },
-    settings: {
-        isMobile: false,
-        thread: 1,
-        proxy: "",
-    }
+    // settings: {
+    // isMobile: false,
+    // thread: 1,
+    // proxy: "",
+    // }
 };

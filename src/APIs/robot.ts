@@ -28,11 +28,12 @@ const updateRobotConfig = async (robotConfig: IRobot): RobotAPIsType => {
         window.electronAPIs ?
             window.electronAPIs.updateRobotConfig(robotConfig)
                 .then(res => resolve(res))
-                .catch(err => reject(err)) : resolve({
-                    data: null,
-                    message: `Successfully updated robot config`,
-                    statusCode: 200,
-                });
+                .catch(err => reject(err)) :
+            resolve({
+                data: null,
+                message: `Successfully updated robot config`,
+                statusCode: 200,
+            });
 
     });
 };
@@ -54,4 +55,4 @@ export {
     getRobotConfig,
     updateRobotConfig,
     runInteract,
-}
+};

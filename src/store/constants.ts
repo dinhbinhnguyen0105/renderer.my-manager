@@ -13,5 +13,3 @@ export const SET_PAGE = "set_page";
 export const SET_MARKETPLACE = "set_marketplace";
 export const SET_NOTIFICATION = "set_notification";
 export const SET_SEARCH = "set_search";
-
-export const SET_SETTINGS = "set_settings";

@@ -1,5 +1,5 @@
 
-type RobotAPIsType = Promise<{
+type APIsType = Promise<{
     data: IRobot,
     message: string,
     statusCode: number,
@@ -16,7 +16,7 @@ declare interface Window {
             message: string,
             statusCode: number
         }>;
-        launchUser: (id: string) => Promise<{
+        launchUser: ({ id: string, isMobile: boolean, proxy: string }) => Promise<{
             message: string,
             statusCode: number
         }>;
@@ -28,15 +28,18 @@ declare interface Window {
             data: IUser,
             message: string,
             statusCode: number
-        }>
+        }>;
         updateUser: (user: IUser) => Promise<{
             message: string,
             statusCode: number,
         }>;
 
-        getRobotConfig: () => RobotAPIsType
-        updateRobotConfig: (robotConfig: IRobot) => RobotAPIsType
-        runInteract: (users: string[], robotConfig: IRobot) => RobotAPIsType
+        getRobotConfig: () => APIsType;
+        updateRobotConfig: (robotConfig: IRobot) => APIsType;
+        runInteract: (users: string[], robotConfig: IRobot) => APIsType;
+
+        getSetting: () => APIsType;
+        updateSetting: (settings: ISetting) => APIsType;
     };
 }
 

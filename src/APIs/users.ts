@@ -1,6 +1,6 @@
 import { IUser } from "~/interfaces/users";
 
-export const getUsers = async (): Promise<{
+export const listUser = async (): Promise<{
     data: IUser[],
     message: string,
     statusCode: number,
@@ -29,12 +29,12 @@ export const deleteUser = async (id: string): Promise<{
     return apiCall;
 };
 
-export const launchUser = async (id: string): Promise<{
+export const launchUser = async ({ id, isMobile, proxy }: { id: string, isMobile: boolean, proxy: string }): Promise<{
     message: string,
     statusCode: number
 }> => {
     const apiCall = window.electronAPIs ?
-        window.electronAPIs.launchUser(id).then(res => res) :
+        window.electronAPIs.launchUser({ id, isMobile, proxy }).then(res => res) :
         {
             message: `Successfully launched browser for user with ID: ${id}`,
             statusCode: 200,

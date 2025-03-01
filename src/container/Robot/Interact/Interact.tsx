@@ -1,28 +1,39 @@
 // Interact.tsx
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Outlet } from "react-router-dom";
 import { RobotContext, UsersContext } from "~/store/Contexts";
 import * as actions from "~/store/actions";
 import * as robotAPIs from "~/APIs/robot";
+import * as settingsAPIs from "~/APIs/settings";
 import styles from "./Interact.module.scss";
 import { IRobot } from "~/interfaces/robot";
+import { initSettingsState, ISettings } from "~/interfaces/settings";
 
 const Interact: React.FC = () => {
     const [robotState, robotDispatch] = useContext(RobotContext);
     const [usersState, usersDispatch] = useContext(UsersContext);
+    const [settingsState, setSettingsState] = useState<ISettings>(initSettingsState);
 
     useEffect(() => {
         robotAPIs.getRobotConfig()
             .then(res => {
-                console.log("Response [getRobotConfig]: ", { message: res.message, statusCode: res.statusCode })
-                robotDispatch(actions.setRobotConfig(res.data as IRobot));
+                console.log("Response [getRobotConfig]: ", { message: res.message, statusCode: res.statusCode });
+                robotDispatch(actions.setRobotConfigs(res.data as IRobot));
+            })
+            .catch(err => console.error(err));
+    }, []);
+    useEffect(() => {
+        settingsAPIs.getSetting()
+            .then(res => {
+                console.log("Response [getSetting]: ", { message: res.message, statusCode: res.statusCode });
+                setSettingsState(res.data as ISettings);
             })
             .catch(err => console.error(err));
     }, []);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        robotDispatch(actions.setSetting({ ...robotState.settings, [e.target.name]: e.target.type === "text" ? e.target.value : e.target.checked }));
+        setSettingsState(prev => ({ ...prev, [e.target.name]: e.target.type === "text" ? e.target.value : e.target.checked }));
     };
 
     const handleSaveButtonClicked: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
@@ -61,7 +72,7 @@ const Interact: React.FC = () => {
                 <div className={styles.content}>
                     <input
                         type="checkbox"
-                        checked={robotState.settings.isMobile}
+                        checked={settingsState.isMobile}
                         name="isMobile"
                         onChange={handleInputChange}
                         className={styles.checkbox}
@@ -71,7 +82,7 @@ const Interact: React.FC = () => {
                 <div className={styles.content}>
                     <input
                         type="text"
-                        value={robotState.settings.thread}
+                        value={settingsState.thread}
                         name="thread"
                         onChange={handleInputChange}
                         className={styles.valueInput}
@@ -81,7 +92,7 @@ const Interact: React.FC = () => {
                 <div className={`${styles.content} ${styles.contentProxy}`}>
                     <input
                         type="text"
-                        value={robotState.settings.proxy}
+                        value={settingsState.proxy}
                         name="proxy"
                         onChange={handleInputChange}
                         className={`${styles.valueInput} ${styles.valueProxyInput}`}
