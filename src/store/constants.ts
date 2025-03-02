@@ -1,15 +1,15 @@
 // constants.ts
-export const SET_USERS = "set_users";
-export const SELECT_USER = "select_user";
-export const SELECT_ALL_USER = "select_all_user";
+export const SET_USERS = "SET_USERS";
+export const SELECT_USER = "SELECT_USER";
+export const SELECT_ALL_USER = "SELECT_ALL_USER";
 
-export const SET_ROBOT_CONFIGS = "set_robot_configs";
-export const SELECT_LIKE_COMMENT = "select_like_comment";
-export const SET_NEWS_FEED = "set_news_feed";
-export const SET_WATCH = "set_watch";
-export const SET_FRIEND = "set_friend";
-export const SET_GROUP = "set_group";
-export const SET_PAGE = "set_page";
-export const SET_MARKETPLACE = "set_marketplace";
-export const SET_NOTIFICATION = "set_notification";
-export const SET_SEARCH = "set_search";
+export const SET_ROBOT_INTERACT_CONFIG = "SET_ROBOT_INTERACT_CONFIG";
+export const SELECT_INTERACT_LIKE_COMMENT = "SELECT_INTERACT_LIKE_COMMENT";
+export const SET_INTERACT_NEWS_FEED = "SET_INTERACT_NEWS_FEED";
+export const SET_INTERACT_WATCH = "SET_INTERACT_WATCH";
+export const SET_INTERACT_FRIEND = "SET_INTERACT_FRIEND";
+export const SET_INTERACT_GROUP = "SET_INTERACT_GROUP";
+export const SET_INTERACT_PAGE = "SET_INTERACT_PAGE";
+export const SET_INTERACT_MARKETPLACE = "SET_INTERACT_MARKETPLACE";
+export const SET_INTERACT_NOTIFICATION = "SET_INTERACT_NOTIFICATION";
+export const SET_INTERACT_SEARCH = "SET_INTERACT_SEARCH";

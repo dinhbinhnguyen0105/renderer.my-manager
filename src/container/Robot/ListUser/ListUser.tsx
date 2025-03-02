@@ -11,7 +11,6 @@ import Row from "./Row";
 const ListUser: React.FC = () => {
     const [usersState, usersDispatch] = useContext(UsersContext);
     const [selectedAll, setSelectedAll] = useState<boolean>(false);
-
     useEffect(() => {
         listUser()
             .then(res => usersDispatch(actions.setUsers({ users: res.data })));

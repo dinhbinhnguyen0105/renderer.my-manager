@@ -75,7 +75,18 @@ export interface ILikeAndComment {
     search: TLikeComment_0,
 };
 
-export const initLikeAndCommentState: ILikeAndComment = {
+export interface IRobotInteract {
+    likeAndComment: ILikeAndComment,
+}
+
+export interface IRobot {
+    interact: IRobotInteract
+};
+
+export type RobotContextType = [IRobot, Dispatch<any>];
+export type RobotInteractContextType = [IRobotInteract, Dispatch<any>];
+
+const initLikeAndCommentState: ILikeAndComment = {
     isSelected: false,
     friend: {
         isSelected: false,
@@ -180,22 +191,16 @@ export const initLikeAndCommentState: ILikeAndComment = {
     },
 };
 
-export interface IRobot {
-    interact: {
-        likeAndComment: ILikeAndComment,
-    },
-    // settings: TRobotSettings,   //đưa ra setting riêng
+const initRobotInteract: IRobotInteract = {
+    likeAndComment: initLikeAndCommentState,
 };
 
-export type RobotContextType = [IRobot, Dispatch<any>];
-
-export const initRobotState: IRobot = {
-    interact: {
-        likeAndComment: initLikeAndCommentState,
-    },
-    // settings: {
-    // isMobile: false,
-    // thread: 1,
-    // proxy: "",
-    // }
+const initRobotState: IRobot = {
+    interact: initRobotInteract,
 };
+
+export {
+    initRobotState,
+    initRobotInteract,
+    initLikeAndCommentState,
+}

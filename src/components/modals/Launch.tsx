@@ -27,12 +27,12 @@ const Launch: React.FC<{ isOpen: boolean, onClose: () => void, id: string }> = (
         const defaultInnerHTML = target.innerHTML;
         target.innerHTML = "Saving settings ...";
         settingsAPIs.updateSetting(settingsState)
-            .then(res => console.log("Response [updateRobotConfig]: ", { message: res.message, statusCode: res.statusCode }))
+            .then(res => console.log("Response [updateRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode }))
             .then(() => {
                 target.innerHTML = "Launching ...";
                 return userAPIs.launchUser({ id: id, isMobile: settingsState.isMobile, proxy: settingsState.proxy });
             })
-            .then(res => console.log("Response [runInteract]: ", { message: res.message, statusCode: res.statusCode }))
+            .then(res => console.log("Response [runRobotInteract]: ", { message: res.message, statusCode: res.statusCode }))
             .catch(err => console.error(err))
             .finally(() => target.innerHTML = defaultInnerHTML);
     }

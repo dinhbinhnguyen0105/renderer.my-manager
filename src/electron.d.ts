@@ -35,8 +35,9 @@ declare interface Window {
         }>;
 
         getRobotConfig: () => APIsType;
-        updateRobotConfig: (robotConfig: IRobot) => APIsType;
-        runInteract: (users: string[], robotConfig: IRobot) => APIsType;
+        getRobotInteractConfig: () => APIsType;
+        updateRobotInteractConfig: (robotInteractConfig: IRobot) => APIsType;
+        runRobotInteract: (userIds: string[], robotInteractConfig: IRobotInteract) => APIsType;
 
         getSetting: () => APIsType;
         updateSetting: (settings: ISetting) => APIsType;

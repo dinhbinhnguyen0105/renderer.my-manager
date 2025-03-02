@@ -1,21 +1,20 @@
 // actions.ts
 import { IUser } from "~/interfaces/users";
-import { TLikeComment_0, TLikeComment_1, TLikeComment_2, TLikeComment_3, IRobot } from "~/interfaces/robot";
+import { TLikeComment_0, TLikeComment_1, TLikeComment_2, TLikeComment_3, IRobot, IRobotInteract } from "~/interfaces/robot";
 import {
     SET_USERS,
     SELECT_USER,
     SELECT_ALL_USER,
-    SELECT_LIKE_COMMENT,
-    SET_NEWS_FEED,
-    SET_WATCH,
-    SET_GROUP,
-    SET_PAGE,
-    SET_FRIEND,
-    SET_MARKETPLACE,
-    SET_NOTIFICATION,
-    SET_SEARCH,
-    SET_SETTINGS,
-    SET_ROBOT_CONFIGS,
+    SELECT_INTERACT_LIKE_COMMENT,
+    SET_INTERACT_NEWS_FEED,
+    SET_INTERACT_WATCH,
+    SET_INTERACT_GROUP,
+    SET_INTERACT_PAGE,
+    SET_INTERACT_FRIEND,
+    SET_INTERACT_MARKETPLACE,
+    SET_INTERACT_NOTIFICATION,
+    SET_INTERACT_SEARCH,
+    SET_ROBOT_INTERACT_CONFIG,
 } from "./constants";
 import { ISettings } from "~/interfaces/settings";
 
@@ -45,47 +44,47 @@ const selectAllUser = (payload: SelectAllUserProps) => ({
 });
 
 const selectLikeAndComment = (payload: { isSelected: boolean }) => ({
-    type: SELECT_LIKE_COMMENT,
+    type: SELECT_INTERACT_LIKE_COMMENT,
     payload
 });
 
 const setMarketplace = (payload: TLikeComment_0) => ({
-    type: SET_MARKETPLACE,
+    type: SET_INTERACT_MARKETPLACE,
     payload,
 });
 const setNotification = (payload: TLikeComment_0) => ({
-    type: SET_NOTIFICATION,
+    type: SET_INTERACT_NOTIFICATION,
     payload,
 });
 const setSearch = (payload: TLikeComment_0) => ({
-    type: SET_SEARCH,
+    type: SET_INTERACT_SEARCH,
     payload,
 });
 const setNewsFeed = (payload: TLikeComment_1) => {
     return ({
-        type: SET_NEWS_FEED,
+        type: SET_INTERACT_NEWS_FEED,
         payload,
     })
 };
 const setWatch = (payload: TLikeComment_1) => ({
-    type: SET_WATCH,
+    type: SET_INTERACT_WATCH,
     payload,
 });
 const setGroup = (payload: TLikeComment_1) => ({
-    type: SET_GROUP,
+    type: SET_INTERACT_GROUP,
     payload,
 });
 const setFriend = (payload: TLikeComment_2) => ({
-    type: SET_FRIEND,
+    type: SET_INTERACT_FRIEND,
     payload,
 });
 const setPage = (payload: TLikeComment_3) => ({
-    type: SET_PAGE,
+    type: SET_INTERACT_PAGE,
     payload,
 });
 
-const setRobotConfigs = (payload: IRobot) => ({
-    type: SET_ROBOT_CONFIGS,
+const setRobotInteractConfigs = (payload: IRobotInteract) => ({
+    type: SET_ROBOT_INTERACT_CONFIG,
     payload,
 });
 
@@ -95,7 +94,7 @@ export {
     selectUser,
     selectAllUser,
 
-    setRobotConfigs,
+    setRobotInteractConfigs,
     selectLikeAndComment,
     setMarketplace,
     setNotification,

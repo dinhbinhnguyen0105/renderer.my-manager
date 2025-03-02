@@ -2,24 +2,24 @@
 import { useContext, useEffect, useState } from "react";
 
 import { Outlet } from "react-router-dom";
-import { RobotContext, UsersContext } from "~/store/Contexts";
+import { RobotInteractContext, UsersContext } from "~/store/Contexts";
 import * as actions from "~/store/actions";
 import * as robotAPIs from "~/APIs/robot";
 import * as settingsAPIs from "~/APIs/settings";
 import styles from "./Interact.module.scss";
-import { IRobot } from "~/interfaces/robot";
+import { IRobotInteract } from "~/interfaces/robot";
 import { initSettingsState, ISettings } from "~/interfaces/settings";
 
 const Interact: React.FC = () => {
-    const [robotState, robotDispatch] = useContext(RobotContext);
+    const [robotInteractState, robotInteractDispatch] = useContext(RobotInteractContext);
     const [usersState, usersDispatch] = useContext(UsersContext);
     const [settingsState, setSettingsState] = useState<ISettings>(initSettingsState);
 
     useEffect(() => {
-        robotAPIs.getRobotConfig()
+        robotAPIs.getRobotInteractConfig()
             .then(res => {
-                console.log("Response [getRobotConfig]: ", { message: res.message, statusCode: res.statusCode });
-                robotDispatch(actions.setRobotConfigs(res.data as IRobot));
+                console.log("Response [getRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode });
+                robotInteractDispatch(actions.setRobotInteractConfigs(res.data as IRobotInteract));
             })
             .catch(err => console.error(err));
     }, []);
@@ -40,8 +40,8 @@ const Interact: React.FC = () => {
         const target = e.target as HTMLButtonElement
         const defaultInnerHTML = target.innerHTML;
         target.innerHTML = "Saving ...";
-        robotAPIs.updateRobotConfig(robotState)
-            .then(res => console.log("Response [updateRobotConfig]: ", { message: res.message, statusCode: res.statusCode }))
+        robotAPIs.updateRobotInteractConfig(robotInteractState)
+            .then(res => console.log("Response [updateRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode }))
             .catch(err => console.error(err))
             .finally(() => target.innerHTML = defaultInnerHTML);
     };
@@ -50,17 +50,17 @@ const Interact: React.FC = () => {
         const target = e.target as HTMLButtonElement
         const defaultInnerHTML = target.innerHTML;
         target.innerHTML = "Saving ...";
-        robotAPIs.updateRobotConfig(robotState)
-            .then(res => console.log("Response [updateRobotConfig]: ", { message: res.message, statusCode: res.statusCode }))
+        robotAPIs.updateRobotInteractConfig(robotInteractState)
+            .then(res => console.log("Response [updateRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode }))
             .then(() => {
                 const selectedUsers = usersState.filter(user => user.actions.isSelected);
                 const userIDs = selectedUsers
                     .map(user => user.info.id)
                     .filter((id): id is string => typeof id === "string");
                 target.innerHTML = "Running ...";
-                return robotAPIs.runInteract(userIDs, robotState);
+                return robotAPIs.runRobotInteract(userIDs, robotInteractState);
             })
-            .then(res => console.log("Response [runInteract]: ", { message: res.message, statusCode: res.statusCode }))
+            .then(res => console.log("Response [runRobotInteract]: ", { message: res.message, statusCode: res.statusCode }))
             .catch(err => console.error(err))
             .finally(() => target.innerHTML = defaultInnerHTML);
     };
@@ -76,8 +76,9 @@ const Interact: React.FC = () => {
                         name="isMobile"
                         onChange={handleInputChange}
                         className={styles.checkbox}
+                        id="isMobile"
                     />
-                    <span className={styles.labelText}>Mobile display</span>
+                    <label className={styles.labelText} htmlFor="isMobile" id="isMobile">Mobile display</label>
                 </div>
                 <div className={styles.content}>
                     <input
@@ -87,7 +88,7 @@ const Interact: React.FC = () => {
                         onChange={handleInputChange}
                         className={styles.valueInput}
                     />
-                    <span className={styles.labelText}>Thread</span>
+                    <label htmlFor="thread" id="thread" className={styles.labelText}>Thread</label>
                 </div>
                 <div className={`${styles.content} ${styles.contentProxy}`}>
                     <input
@@ -97,7 +98,7 @@ const Interact: React.FC = () => {
                         onChange={handleInputChange}
                         className={`${styles.valueInput} ${styles.valueProxyInput}`}
                     />
-                    <span className={styles.labelText}>Proxy</span>
+                    <label htmlFor="proxy" id="proxy" className={styles.labelText}>Proxy</label>
                 </div>
             </div>
             <div className={styles.actionsContainer}>

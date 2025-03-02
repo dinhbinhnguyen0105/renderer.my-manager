@@ -46,3 +46,45 @@ export interface IUser {
 export type UsersContextType = [IUser[], Dispatch<any>];
 
 export const initUsersState: IUser[] = [];
+
+export const initUserState = {
+    info: {
+        id: "",
+        username: "",
+        uid: "",
+        password: "",
+        twoFA: "",
+        email: "",
+        emailPassword: "",
+        phoneNumber: "",
+        birthDay: undefined,
+        gender: undefined,
+        avatar: undefined,
+        group: "",
+        type: "",
+        note: "",
+        status: undefined,
+        createdAt: undefined,
+        updatedAt: undefined,
+    },
+    browser: {
+        name: undefined,
+        mobile: {
+            userAgent: undefined,
+            screenHeight: undefined,
+            screenWidth: undefined,
+            viewportHeight: undefined,
+            viewportWidth: undefined
+        },
+        desktop: {
+            userAgent: undefined,
+            screenHeight: undefined,
+            screenWidth: undefined,
+            viewportHeight: undefined,
+            viewportWidth: undefined
+        }
+    },
+    actions: {
+        isSelected: false,
+    },
+};

@@ -2,53 +2,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { IUser } from "~/interfaces/users";
+import { initUserState, IUser } from "~/interfaces/users";
 import * as usersAPIs from "~/APIs/users";
 import styles from "./Create.module.scss";
 
 const Create: React.FC = () => {
     const navigate = useNavigate();
-    const [user, setUser] = useState<IUser>({
-        info: {
-            id: "",
-            username: "",
-            uid: "",
-            password: "",
-            twoFA: "",
-            email: "",
-            emailPassword: "",
-            phoneNumber: "",
-            birthDay: undefined,
-            gender: undefined,
-            avatar: undefined,
-            group: "",
-            type: "",
-            note: "",
-            status: undefined,
-            createdAt: undefined,
-            updatedAt: undefined,
-        },
-        browser: {
-            name: undefined,
-            mobile: {
-                userAgent: undefined,
-                screenHeight: undefined,
-                screenWidth: undefined,
-                viewportHeight: undefined,
-                viewportWidth: undefined
-            },
-            desktop: {
-                userAgent: undefined,
-                screenHeight: undefined,
-                screenWidth: undefined,
-                viewportHeight: undefined,
-                viewportWidth: undefined
-            }
-        },
-        actions: {
-            isSelected: false,
-        },
-    });
+    const [user, setUser] = useState<IUser>(initUserState);
 
     const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e): void => {
         const value = e.target.value;
@@ -70,6 +30,7 @@ const Create: React.FC = () => {
                 }
                 console.log("Message [handleSubmit(Create)]: ", res.message);
             })
+            .then(() => setUser(initUserState))
             .catch(err => console.error(err));
     };
 

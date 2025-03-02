@@ -1,21 +1,21 @@
 // Robot.ts
-import { IRobot } from "~/interfaces/robot";
+import { IRobot, IRobotInteract } from "~/interfaces/robot";
 
 type RobotAPIsType = Promise<{
-    data: IRobot | null,
+    data: IRobotInteract | null,
     message: string,
     statusCode: number,
 }>;
 
-const getRobotConfig = (): RobotAPIsType => {
+const getRobotInteractConfig = (): RobotAPIsType => {
     return new Promise((resolve, reject) => {
         window.electronAPIs ?
-            window.electronAPIs.getRobotConfig()
+            window.electronAPIs.getRobotInteractConfig()
                 .then(res => resolve(res))
                 .catch(err => reject(err)) :
-            fetch("http://localhost:3000/robot")
+            fetch("http://localhost:3000/interact")
                 .then(async res => resolve({
-                    data: await res.json() as IRobot,
+                    data: await res.json() as IRobotInteract, // { likeAndComment: ILikeAndComment }
                     message: "Successfully retrieved data from the database [robot]",
                     statusCode: 200,
                 }))
@@ -23,10 +23,10 @@ const getRobotConfig = (): RobotAPIsType => {
 
     });
 };
-const updateRobotConfig = async (robotConfig: IRobot): RobotAPIsType => {
+const updateRobotInteractConfig = async (robotInteractConfig: IRobotInteract): RobotAPIsType => {
     return new Promise((resolve, reject) => {
         window.electronAPIs ?
-            window.electronAPIs.updateRobotConfig(robotConfig)
+            window.electronAPIs.updateRobotInteractConfig(robotInteractConfig)
                 .then(res => resolve(res))
                 .catch(err => reject(err)) :
             resolve({
@@ -37,10 +37,10 @@ const updateRobotConfig = async (robotConfig: IRobot): RobotAPIsType => {
 
     });
 };
-const runInteract = async (userIds: string[], robotConfig: IRobot): RobotAPIsType => {
+const runRobotInteract = async (userIds: string[], robotInteractConfig: IRobotInteract): RobotAPIsType => {
     return new Promise((resolve, reject) => {
         window.electronAPIs ?
-            window.electronAPIs.runInteract(userIds, robotConfig)
+            window.electronAPIs.runRobotInteract(userIds, robotInteractConfig)
                 .then(res => resolve(res))
                 .catch(err => reject(err)) : resolve({
                     data: null,
@@ -52,7 +52,7 @@ const runInteract = async (userIds: string[], robotConfig: IRobot): RobotAPIsTyp
 };
 
 export {
-    getRobotConfig,
-    updateRobotConfig,
-    runInteract,
+    getRobotInteractConfig,
+    updateRobotInteractConfig,
+    runRobotInteract,
 };

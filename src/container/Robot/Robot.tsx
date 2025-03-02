@@ -3,7 +3,7 @@
 import { Outlet, Link } from "react-router-dom";
 
 import Header from "~/components/Header/Header";
-import { UsersProvider, RobotProvider } from "~/store/Providers";
+import { UsersProvider, RobotInteractProvider } from "~/store/Providers";
 import ListUser from "./ListUser/ListUser";
 
 import styles from "./Robot.module.scss";
@@ -14,7 +14,7 @@ const Robot: React.FC = () => {
         <div className={styles.robotContainer}>
             <Header />
             <UsersProvider>
-                <RobotProvider>
+                <RobotInteractProvider>
                     <div className={styles.robotContent}>
                         <ListUser />
                         <div className={styles.configContainer}>
@@ -54,7 +54,7 @@ const Robot: React.FC = () => {
                             <Outlet />
                         </div>
                     </div>
-                </RobotProvider>
+                </RobotInteractProvider>
             </UsersProvider>
         </div>
     )

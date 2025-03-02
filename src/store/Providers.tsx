@@ -1,12 +1,11 @@
 // Providers.tsx
 import { useMemo, useReducer, useState } from "react";
 
-import { RobotContext, SearchContext, UsersContext } from "./Contexts";
+import { RobotContext, RobotInteractContext, SearchContext, UsersContext } from "./Contexts";
 import { SearchContextType } from "~/interfaces/search";
 import { UsersContextType, initUsersState } from "~/interfaces/users";
-import { RobotReducer, UsersReducer } from "./Reducers";
-import { RobotContextType, initRobotState } from "~/interfaces/robot";
-
+import { RobotInteractReducer, RobotReducer, UsersReducer } from "./Reducers";
+import { initRobotInteract, initRobotState, RobotContextType, RobotInteractContextType } from "~/interfaces/robot";
 
 const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [searchValue, setSearchValue] = useState("");
@@ -30,6 +29,7 @@ const UsersProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     );
 };
 
+
 const RobotProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [robotState, robotDispatch] = useReducer(RobotReducer, initRobotState);
     const robotContextValue = useMemo<RobotContextType>(() => [robotState, robotDispatch], [robotState, robotDispatch]);
@@ -40,8 +40,19 @@ const RobotProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     );
 };
 
+const RobotInteractProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [robotInteractState, robotInteractDispatch] = useReducer(RobotInteractReducer, initRobotInteract);
+    const robotInteractValue = useMemo<RobotInteractContextType>(() => [robotInteractState, robotInteractDispatch], [robotInteractState, robotInteractDispatch]);
+    return (
+        <RobotInteractContext value={robotInteractValue}>
+            {children}
+        </RobotInteractContext>
+    );
+};
+
 export {
     SearchProvider,
     UsersProvider,
     RobotProvider,
+    RobotInteractProvider,
 };
