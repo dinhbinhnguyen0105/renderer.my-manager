@@ -93,4 +93,4 @@ export const updateUser = async (user: IUser): Promise<{
                 statusCode: 200,
             });
     });
-}
+};

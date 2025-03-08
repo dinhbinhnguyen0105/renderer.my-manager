@@ -1,6 +1,4 @@
-// Interact.tsx
 import { useContext, useEffect, useState } from "react";
-
 import { Outlet } from "react-router-dom";
 import { RobotInteractContext, UsersContext } from "~/store/Contexts";
 import * as actions from "~/store/actions";
@@ -12,57 +10,79 @@ import { initSettingsState, ISettings } from "~/interfaces/settings";
 
 const Interact: React.FC = () => {
     const [robotInteractState, robotInteractDispatch] = useContext(RobotInteractContext);
-    const [usersState, usersDispatch] = useContext(UsersContext);
+    const [usersState] = useContext(UsersContext);
     const [settingsState, setSettingsState] = useState<ISettings>(initSettingsState);
 
     useEffect(() => {
-        robotAPIs.getRobotInteractConfig()
-            .then(res => {
-                console.log("Response [getRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode });
-                robotInteractDispatch(actions.setRobotInteractConfigs(res.data as IRobotInteract));
-            })
-            .catch(err => console.error(err));
+        fetchRobotInteractConfig();
+        fetchSettings();
     }, []);
-    useEffect(() => {
-        settingsAPIs.getSetting()
-            .then(res => {
-                console.log("Response [getSetting]: ", { message: res.message, statusCode: res.statusCode });
-                setSettingsState(res.data as ISettings);
-            })
-            .catch(err => console.error(err));
-    }, []);
+
+    const fetchRobotInteractConfig = async () => {
+        try {
+            const res = await robotAPIs.getRobotInteractConfig();
+            console.log("Response [getRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode });
+            robotInteractDispatch(actions.setRobotInteractConfigs(res.data as IRobotInteract));
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const fetchSettings = async () => {
+        try {
+            const res = await settingsAPIs.getSetting();
+            console.log("Response [getSetting]: ", { message: res.message, statusCode: res.statusCode });
+            setSettingsState(res.data as ISettings);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setSettingsState(prev => ({ ...prev, [e.target.name]: e.target.type === "text" ? e.target.value : e.target.checked }));
+        const { name, type, value, checked } = e.target;
+        setSettingsState(prev => ({ ...prev, [name]: type === "text" ? value : checked }));
     };
 
-    const handleSaveButtonClicked: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
-        const target = e.target as HTMLButtonElement
+    const handleSaveButtonClicked = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+        const target = e.target as HTMLButtonElement;
         const defaultInnerHTML = target.innerHTML;
         target.innerHTML = "Saving ...";
-        robotAPIs.updateRobotInteractConfig(robotInteractState)
-            .then(res => console.log("Response [updateRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode }))
-            .catch(err => console.error(err))
-            .finally(() => target.innerHTML = defaultInnerHTML);
+
+        try {
+            await robotAPIs.updateRobotInteractConfig(robotInteractState);
+            console.log("Response [updateRobotInteractConfig]: ", { message: "Config updated", statusCode: 200 });
+            await settingsAPIs.updateSetting(settingsState);
+            console.log("Response [updateSetting]: ", { message: "Settings updated", statusCode: 200 });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            target.innerHTML = defaultInnerHTML;
+        }
     };
 
-    const handleSaveAndRunButtonClicked: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
-        const target = e.target as HTMLButtonElement
+    const handleSaveAndRunButtonClicked = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+        const target = e.target as HTMLButtonElement;
         const defaultInnerHTML = target.innerHTML;
         target.innerHTML = "Saving ...";
-        robotAPIs.updateRobotInteractConfig(robotInteractState)
-            .then(res => console.log("Response [updateRobotInteractConfig]: ", { message: res.message, statusCode: res.statusCode }))
-            .then(() => {
-                const selectedUsers = usersState.filter(user => user.actions.isSelected);
-                const userIDs = selectedUsers
-                    .map(user => user.info.id)
-                    .filter((id): id is string => typeof id === "string");
-                target.innerHTML = "Running ...";
-                return robotAPIs.runRobotInteract(userIDs, robotInteractState);
-            })
-            .then(res => console.log("Response [runRobotInteract]: ", { message: res.message, statusCode: res.statusCode }))
-            .catch(err => console.error(err))
-            .finally(() => target.innerHTML = defaultInnerHTML);
+
+        try {
+            await robotAPIs.updateRobotInteractConfig(robotInteractState);
+            console.log("Response [updateRobotInteractConfig]: ", { message: "Config updated", statusCode: 200 });
+
+            const selectedUsers = usersState.filter(user => user.actions.isSelected);
+            const userIDs = selectedUsers.map(user => user.info.id).filter((id): id is string => typeof id === "string");
+
+            target.innerHTML = "Running ...";
+            await robotAPIs.runRobotInteract(userIDs, robotInteractState);
+            console.log("Response [runRobotInteract]: ", { message: "Robot running", statusCode: 200 });
+
+            await settingsAPIs.updateSetting(settingsState);
+            console.log("Response [updateSetting]: ", { message: "Settings updated", statusCode: 200 });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            target.innerHTML = defaultInnerHTML;
+        }
     };
 
     return (
@@ -78,7 +98,7 @@ const Interact: React.FC = () => {
                         className={styles.checkbox}
                         id="isMobile"
                     />
-                    <label className={styles.labelText} htmlFor="isMobile" id="isMobile">Mobile display</label>
+                    <label className={styles.labelText} htmlFor="isMobile">Mobile display</label>
                 </div>
                 <div className={styles.content}>
                     <input
@@ -88,7 +108,7 @@ const Interact: React.FC = () => {
                         onChange={handleInputChange}
                         className={styles.valueInput}
                     />
-                    <label htmlFor="thread" id="thread" className={styles.labelText}>Thread</label>
+                    <label htmlFor="thread" className={styles.labelText}>Thread</label>
                 </div>
                 <div className={`${styles.content} ${styles.contentProxy}`}>
                     <input
@@ -98,7 +118,7 @@ const Interact: React.FC = () => {
                         onChange={handleInputChange}
                         className={`${styles.valueInput} ${styles.valueProxyInput}`}
                     />
-                    <label htmlFor="proxy" id="proxy" className={styles.labelText}>Proxy</label>
+                    <label htmlFor="proxy" className={styles.labelText}>Proxy</label>
                 </div>
             </div>
             <div className={styles.actionsContainer}>
